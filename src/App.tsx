@@ -559,8 +559,59 @@ const App: React.FC = () => {
       {/* Network Composition */}
       <SyndicateComposition />
 
+
+      {/* Technical Architecture Section */}
+      <section className="section" style={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
+        <div className="container">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="section-title"
+            style={{ textAlign: 'center', marginBottom: '3rem', fontSize: '3.5rem' }}
+          >
+            Built on <span style={{ color: 'var(--accent-color)' }}>Provable</span> Infrastructure
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="glass"
+            style={{ padding: '2rem', borderRadius: '24px', overflow: 'hidden' }}
+          >
+            <img
+              src="/architecture.svg"
+              alt="Patronaige technical architecture diagram"
+              style={{ width: '100%', height: 'auto', borderRadius: '16px' }}
+            />
+          </motion.div>
+          <div className="grid grid-3" style={{ gap: '2rem', marginTop: '3rem', textAlign: 'center' }}>
+            {[
+              { title: 'TEE Receipts', desc: 'Hardware-signed inference proofs' },
+              { title: 'On-Chain Anchor', desc: 'Starknet L2 audit registry' },
+              { title: 'ZK Research', desc: 'Long-term trustlessness roadmap' }
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="glass"
+                style={{ padding: '1.5rem', borderTop: '2px solid var(--accent-color)' }}
+              >
+                <h4 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--accent-color)' }}>{item.title}</h4>
+                <p style={{ fontSize: '0.95rem', opacity: 0.7 }}>{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Partner Note */}
       <PartnerNote />
+
 
       {/* Solution Section */}
       <section className="section" style={{ backgroundColor: 'rgba(255,255,255,0.01)' }}>

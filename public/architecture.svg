@@ -1,0 +1,31 @@
+<svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" style="background:transparent; font-family: 'Inter', system-ui, sans-serif;">
+  <rect x="100" y="50" width="1000" height="600" rx="24" fill="rgba(0,0,0,0.3)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+  <rect x="100" y="50" width="1000" height="600" rx="24" fill="rgba(0,255,255,0.03)"/>
+  <text x="600" y="100" text-anchor="middle" fill="#fff" font-size="32" font-weight="700">Patronaige Architecture</text>
+  <g transform="translate(100,160)">
+    <rect width="200" height="120" rx="12" fill="#1a1a1a" stroke="#ff6b00" stroke-width="2"/>
+    <text x="100" y="40" text-anchor="middle" fill="#ff6b00" font-size="16" font-weight="600">Provider Daemon</text>
+    <text x="100" y="70" text-anchor="middle" fill="#888" font-size="11">provider/daemon.ts</text>
+  </g>
+  <g transform="translate(420,160)">
+    <rect width="200" height="120" rx="12" fill="#1a1a1a" stroke="#00d4ff" stroke-width="2"/>
+    <text x="100" y="40" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="600">Verification Contract</text>
+    <text x="100" y="70" text-anchor="middle" fill="#888" font-size="11">contracts/Verification.cairo</text>
+  </g>
+  <g transform="translate(720,160)">
+    <rect width="200" height="120" rx="12" fill="#1a1a1a" stroke="#10b981" stroke-width="2"/>
+    <text x="100" y="40" text-anchor="middle" fill="#10b981" font-size="16" font-weight="600">Starknet L2</text>
+    <text x="100" y="70" text-anchor="middle" fill="#888" font-size="11">Immutable audit log</text>
+  </g>
+  <g transform="translate(100,340)">
+    <rect width="200" height="140" rx="12" fill="#1a1a1a" stroke="#f59e0b" stroke-width="2"/>
+    <text x="100" y="35" text-anchor="middle" fill="#f59e0b" font-size="16" font-weight="600">Receipt Format</text>
+    <text x="100" y="65" text-anchor="middle" fill="#888" font-size="11">specs/RECEIPT-SPEC.md</text>
+  </g>
+  <g transform="translate(340,340)">
+    <rect width="200" height="140" rx="12" fill="#1a1a1a" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="100" y="35" text-anchor="middle" fill="#8b5cf6" font-size="16" font-weight="600">Validator</text>
+    <text x="100" y="65" text-anchor="middle" fill="#888" font-size="11">provider/validator.ts</text>
+  </g>
+  <text x="600" y="680" text-anchor="middle" fill="#666" font-size="12">All code open source: github.com/spiritclawd/patronaige</text>
+</svg>

@@ -1,22 +1,43 @@
 # Patronaige
 
-**Verifiable AI Compute Capital** — infrastructure that turns unverifiable compute into provable capital using TEE receipts and onchain attestations.
+**Startup Inference Access** — connecting early-stage teams with the AI compute they need to build, without upfront costs.
+
+Patronaige matches startups with inference providers who want upside in what you build — revenue share, equity, or hybrid. No flat-rate rental. No one-size-fits-all.
 
 ---
 
-## The Moat
+## How It Works
 
-Most AI compute markets are unverifiable. You either trust the provider or you don't Patronaige removes that trust assumption:
-
-- **Receipts are signed in hardware** (AWS Nitro enclaves or Intel SGX) before the result leaves the enclave.
-- **Receipt digests anchor on-chain** (Starknet L2) — immutable audit trail.
-- **Disputes are slashing-backed** — anyone can challenge a bad receipt; honest challengers get rewarded.
-
-This turns "compute as a service" into **"compute as a verifiable financial instrument."**
+1. **Apply** — Tell us what you're building and what compute you need.
+2. **Match** — We pair you with providers that fit your stack and stage.
+3. **Deploy** — Compute flows. You build. Providers verify usage via TEE.
+4. **Settle** — When you win, they win. Revenue share or equity, per deal.
 
 ---
 
-## Architecture
+## Deal Structures
+
+| Structure | How It Works |
+|-----------|-------------|
+| **Revenue Share** | Percentage of revenue until a predefined cap. Cash flows. Simple math. |
+| **Equity Stake** | Share of the company in exchange for sustained compute access. Long-term alignment. |
+| **Hybrid** | Mix of both. Tailored to the startup's stage, capital needs, and growth trajectory. |
+
+---
+
+## Why Trust Matters
+
+Inference providers need to know their compute is used for the agreed purpose. Startups need to prove it without overhead. Patronaige solves this with **hardware-signed receipts**:
+
+- Every inference run is attested by a TEE enclave (AWS Nitro / Intel SGX)
+- Receipt digests are anchored on-chain (Starknet L2) — immutable audit trail
+- Providers verify usage. Startups stay focused. No paperwork. No disputes.
+
+This is the trust layer that makes non-traditional deal structures viable. **It enables the platform. It isn't the platform.**
+
+---
+
+## Technical Stack
 
 ```mermaid
 flowchart LR
@@ -27,91 +48,34 @@ flowchart LR
     Receipt -->|4. Sign with enclave key| Signed[Sig]
     Signed -->|5. Return to user| User
     Signed -->|6. Submit digest| L2[Starknet L2\nAudit Registry]
-    L2 -->|7. Anchor immutable| Chain[On-chain\nReceipt Digest]
-    Challenger[Any watcher] -->|8. Dispute if invalid| Dispute[Dispute Committee\n+ Slashing]
-    Dispute -->|9. Resolve| Chain
 ```
 
-### Components
-
-1. **Builder Client** — sends prompt, receives completion + full receipt
+**Components:**
+1. **Builder Client** — sends prompt, receives completion + receipt
 2. **Provider Daemon** — runs inside TEE; produces signed receipts
-3. **Audit Registry (Cairo)** — on-chain contract that anchors receipt digests, handles disputes
-4. **Dispute Committee** — randomly selected from staked providers; adjudicates challenges
-5. **Frontend (React/Vite)** — dashboard to monitor compute, view receipts, manage stakes
-
----
-
-## Phase 1 — TEE Receipts (Now)
-
-**Objective:** Production‑ready verifiable compute using hardware enclaves.
-
-### Key Artifacts
-
-| Artifact | Location | Status |
-|----------|----------|--------|
-| Audit Layer Spec | `specs/AUDIT-LAYER-SPEC.md` (spiritclawd/patronaige) | Complete |
-| Receipt Format | `specs/RECEIPT-SPEC.md` + `receipt.schema.json` | Final |
-| Verification Contract (Cairo) | `contracts/Verification.cairo` | Draft |
-| Provider Daemon (TS stub) | `provider/daemon.ts` | Mock mode |
-
-### Receipt Flow
-
-```
-Request → Enclave → Inference → Hash I/O → Build CBOR → Sign (enclave key) → Return
-                                                                      ↓
-                                                              Anchor digest on L2
-```
-
-**Receipt fields:**
-`model_id`, `input_hash`, `output_hash`, `provider_id`, `timestamp`, `metrics`, `attestation` (TEE report + CA chain)
-
-**Anchoring:**
-Digest = `keccak256(cbor_canonical(receipt))`. Batch 100 receipts → single L2 transaction (cost amortization).
-
-**Dispute window:** 24–48 hours after anchoring. Any staked watcher can submit evidence (IPFS CID) and trigger slashing.
-
----
-
-## Phase 2 — ZK‑Attested Inference (Research)
-
-**Timeline:** 6–24 months
-
-Replace TEE trust assumptions with cryptographic proofs. Use Lagrange DeepProve‑1 or custom zkLLM circuits to prove that `output = model(input)` without revealing model weights.
-
-**Milestones:**
-1. PoC with Llama 3.2 1B (quantized INT4)
-2. Batching protocol (aggregate 100+ inferences into one proof)
-3. Optimized gates for attention/layernorm
-4. Dual‑track deployment (TEE for speed, ZK for high‑value)
-
-See `specs/ZK-RESEARCH-TRACK.md` in the specs repo.
+3. **Audit Registry (Cairo)** — on-chain contract anchoring receipt digests
+4. **Frontend (React/Vite)** — portal for startups and providers
 
 ---
 
 ## Quickstart
 
 ### Run a provider (dev mode)
-
 ```bash
 cd provider
 npm install
 npx ts-node daemon.ts "llama-3.2-1B" "Explain quantum entanglement simply"
 ```
-
-This generates a mock receipt (signed with local ed25519 key). In production, the daemon runs inside an enclave and uses hardware‑backed keys.
+Generates a mock receipt (signed with local ed25519 key).
 
 ### Validate a receipt
-
 ```bash
 npm i ajv ajv-formats cbor
 node -e "const v=require('./provider/validator'); v.validateReceipt(JSON.parse(process.argv[1]))" "$(cat receipt.json)"
 ```
 
 ### Deploy the Cairo contract
-
 ```bash
-# Using starkli
 starkli declare contracts/Verification.cairo --account $ACCOUNT
 starkli deploy $CLASS_HASH --account $ACCOUNT
 ```
@@ -120,14 +84,13 @@ starkli deploy $CLASS_HASH --account $ACCOUNT
 
 ## Economics
 
-| Role | Action | Payout |
-|------|--------|--------|
-| **Builder** | Pays for inference + small verification fee | Receives compute, pays later (receipt‑backed revenue share) |
-| **Provider** | Stakes capital, runs enclave, produces receipts | Earns usage fees, loses stake if proven fraudulent |
-| **Challenger** | Watches chain, submits disputes when receipts invalid | Gets % of slashed stake as bounty |
-| **Patron (Investor)** | Funds compute pool | Receives upside from builder revenue, protected by audit layer |
+| Role | What They Do |
+|------|-------------|
+| **Startup** | Receives compute, pays only when they grow (rev-share or equity) |
+| **Provider** | Deploys idle capacity, earns upside from startup success |
+| **Challenger** | Watches chain for invalid receipts, earns bounty from slashed stake |
 
-The system aligns incentives: providers have skin in the game, challengers are rewarded for vigilance, builders get non‑dilutive financing.
+Patronaige takes a small cut only when a deal succeeds. Aligned incentives — no one gets paid unless the startup ships.
 
 ---
 
@@ -146,4 +109,4 @@ The system aligns incentives: providers have skin in the game, challengers are r
 
 ---
 
-*Patronaige — where compute meets capital, provably.*
+*Patronaige — access the compute you need. Pay with what you build.*

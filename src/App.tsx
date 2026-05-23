@@ -243,6 +243,26 @@ const App: React.FC = () => {
           </p>
         </section>
 
+        {/* Market Signal — Sam Altman / OpenAI validation */}
+        <section className="mb-12 text-center reveal">
+          <div className="stone-card p-6 md:p-8 max-w-2xl mx-auto">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-[#8b735b] font-mono mb-3">
+              Market Signal
+            </p>
+            <blockquote className="text-base md:text-lg italic text-[#5a5550] font-serif mb-3">
+              "We are offering to invest $2M in OpenAI credits into every YC company."
+            </blockquote>
+            <p className="text-sm text-[#8b735b] font-serif">
+              — <strong>Sam Altman</strong>, May 2026
+            </p>
+            <div className="mt-4 pt-4 border-t border-[#d4cfc7]/40">
+              <p className="text-xs text-[#9a9590] font-sans">
+                The largest AI company just validated tokens-for-equity. Patronaige is building the open version — no YC required.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Footer */}
         <footer className="text-center text-[#9a9590] text-sm pb-10 font-mono">
           <p>Built on Provable Infrastructure • TEE Receipts • Starknet L2</p>

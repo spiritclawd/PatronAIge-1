@@ -1,0 +1,87 @@
+<svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <!-- Warm stone gradient -->
+    <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a87c"/>
+      <stop offset="100%" stop-color="#8b735b"/>
+    </linearGradient>
+
+    <!-- Subtle glow -->
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Connection line -->
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a87c"/>
+      <stop offset="50%" stop-color="#8b735b"/>
+      <stop offset="100%" stop-color="#c9a87c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background hint -->
+  <rect width="100%" height="100%" fill="#f8f7f4" opacity="0"/>
+
+  <!-- Provider node -->
+  <g transform="translate(80, 160)">
+    <rect x="0" y="0" width="160" height="100" rx="16" fill="rgba(255,255,255,0.7)" stroke="url(#stoneGrad)" stroke-width="1.5"/>
+    <text x="80" y="38" text-anchor="middle" fill="#2d2926" fontFamily="Inter, sans-serif" fontSize="16" fontWeight="600">Provider</text>
+    <text x="80" y="58" text-anchor="middle" fill="#8b735b" fontFamily="JetBrains Mono, monospace" fontSize="12">ed25519 keypair</text>
+    <text x="80" y="82" text-anchor="middle" fill="#9a9590" fontFamily="Inter, sans-serif" fontSize="11">TEE enclave (Nitro/SGX)</text>
+  </g>
+
+  <!-- Receipt arrow -->
+  <g transform="translate(250, 210)">
+    <path d="M0 0 L80 0" stroke="url(#lineGrad)" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+    <text x="40" y="-8" text-anchor="middle" fill="#8b735b" fontFamily="JetBrains Mono, monospace" fontSize="10">CBOR signed receipt</text>
+  </g>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="url(#lineGrad)"/>
+    </marker>
+  </defs>
+
+  <!-- Verification Contract -->
+  <g transform="translate(520, 160)">
+    <rect x="0" y="0" width="200" height="100" rx="16" fill="rgba(255,255,255,0.7)" stroke="url(#stoneGrad)" stroke-width="1.5"/>
+    <text x="100" y="38" text-anchor="middle" fill="#2d2926" fontFamily="Inter, sans-serif" fontSize="16" fontWeight="600">Verification Contract</text>
+    <text x="100" y="58" text-anchor="middle" fill="#6b5d4f" fontFamily="JetBrains Mono, monospace" fontSize="12">Cairo — Starknet Sepolia</text>
+    <text x="100" y="82" text-anchor="middle" fill="#9a9590" fontFamily="Inter, sans-serif" fontSize="11">anchor receipt_digest</text>
+  </g>
+
+  <!-- On-chain arrow -->
+  <g transform="translate(380, 210)">
+    <path d="M0 0 L120 0" stroke="url(#lineGrad)" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+    <text x="60" y="-8" text-anchor="middle" fill="#8b735b" fontFamily="JetBrains Mono, monospace" fontSize="10">on-chain dispute log</text>
+  </g>
+
+  <!-- Starknet L2 -->
+  <g transform="translate(520, 300)">
+    <rect x="0" y="0" width="200" height="90" rx="16" fill="rgba(255,255,255,0.7)" stroke="#c9a87c" strokeWidth="1.5" filter="url(#softGlow)"/>
+    <text x="100" y="32" text-anchor="middle" fill="#8b735b" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Starknet L2</text>
+    <text x="100" y="52" text-anchor="middle" fill="#9a9590" fontFamily="Inter, sans-serif" fontSize="11">Optimism / Arbitrum alternative</text>
+    <text x="100" y="76" text-anchor="middle" fill="#6b5d4f" fontFamily="JetBrains Mono, monospace" fontSize="12">tx_hash: 0x3a7f...</text>
+  </g>
+
+  <!-- Vertical anchor arrow -->
+  <g transform="translate(620, 250)">
+    <path d="M0 0 L0 50" stroke="url(#lineGrad)" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+    <text x="-12" y="25" text-anchor="middle" fill="#8b735b" fontFamily="JetBrains Mono, monospace" fontSize="10">event</text>
+  </g>
+
+  <!-- Spec files -->
+  <g transform="translate(60, 300)">
+    <rect x="0" y="0" width="140" height="80" rx="12" fill="rgba(255,255,255,0.6)" stroke="rgba(139,115,91,0.2)" strokeWidth="1"/>
+    <text x="20" y="25" fill="#2d2926" fontFamily="JetBrains Mono, monospace" fontSize="10">specs/</text>
+    <text x="30" y="42" fill="#5a5550" fontFamily="Inter, sans-serif" fontSize="11">• RECEIPT-SPEC.md</text>
+    <text x="30" y="58" fill="#5a5550" fontFamily="Inter, sans-serif" fontSize="11">• CBOR-SPEC.md</text>
+    <text x="30" y="74" fill="#5a5550" fontFamily="Inter, sans-serif" fontSize="11">• receipt.schema.json</text>
+  </g>
+
+  <!-- Source arrow -->
+  <g transform="translate(140, 260)">
+    <path d="M0 0 L0 40" stroke="rgba(139,115,91,0.3)" strokeWidth="1.5" strokeDasharray="4 4"/>
+    <text x="-10" y="20" text-anchor="middle" fill="#9a9590" fontFamily="Inter, sans-serif" fontSize="9">source</text>
+  </g>
+</svg>
